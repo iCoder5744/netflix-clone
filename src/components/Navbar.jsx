@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import search_icon from '../assets/search_icon.svg';
 import bell_icon from '../assets/bell_icon.svg';
@@ -7,77 +7,73 @@ import profile_img from '../assets/profile_img.png';
 import caret_icon from '../assets/caret_icon.svg';
 
 const Navbar = () => {
+    const [isScrolled, setIsScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
 
-    // Mock authentication state (Replace this with real auth logic)
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY >= 80);
+        };
 
-    // Function to handle logout
-    const handleLogout = () => {
-        setIsAuthenticated(false); // Reset auth state (use Firebase/JWT/localStorage in real case)
-    };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
-        <div className="fixed top-0 w-[90%] max-w-[90%] md:px-10 py-4 flex justify-between items-center text-[#e5e5e5] bg-gradient-to-b from-black/70 to-transparent z-10 mx-auto left-0 right-0">
+        <nav className={`fixed top-0 w-full z-20 transition-all duration-300 ${isScrolled ? "bg-[#141414]" : "bg-transparent"}`}>
+            <div className="container mx-auto flex justify-between items-center px-4 md:px-10 lg:px-16 max-w-[1600px] py-3 md:py-4">
 
-            {/* Left Section */}
-            <div className="flex items-center gap-5 md:gap-10">
-                <img src={logo} alt="Logo" className="w-[80px] md:w-[100px]" />
+                {/* Left: Logo and Navigation Links */}
+                <div className="flex items-center gap-4 md:gap-6 lg:gap-10">
+                    <Link to="/">
+                        <img src={logo} alt="Logo" className="w-[70px] md:w-[90px] lg:w-[100px]" />
+                    </Link>
 
-                {/* Desktop Navigation */}
-                <ul className="hidden md:flex list-none gap-5">
-                    <li><Link to="/" className="cursor-pointer">Home</Link></li>
-                    <li><Link to="/tvshows" className="cursor-pointer">TV Shows</Link></li>
-                    <li><Link to="/movies" className="cursor-pointer">Movies</Link></li>
-                    <li><Link to="/popular" className="cursor-pointer">New & Popular</Link></li>
-                    <li><Link to="/mylist" className="cursor-pointer">My List</Link></li>
-                    <li><Link to="/languages" className="cursor-pointer">Browse by Languages</Link></li>                </ul>
-            </div>
+                    {/* Desktop & Tablet Navigation */}
+                    <ul className="hidden md:flex list-none gap-3 md:gap-4 lg:gap-6 text-xs md:text-sm lg:text-base">
+                        <li><Link to="/" className="hover:text-gray-300">Home</Link></li>
+                        <li><Link to="/tvshows" className="hover:text-gray-300">TV Shows</Link></li>
+                        <li><Link to="/movies" className="hover:text-gray-300">Movies</Link></li>
+                        <li><Link to="/popular" className="hover:text-gray-300">New & Popular</Link></li>
+                        <li><Link to="/mylist" className="hover:text-gray-300">My List</Link></li>
+                        <li><Link to="/languages" className="hover:text-gray-300">Languages</Link></li>
+                    </ul>
+                </div>
 
-            {/* Right Section */}
-            <div className="flex items-center gap-5">
-                <img src={search_icon} alt="Search" className="w-5 cursor-pointer" />
-                <p className="hidden md:block">Children</p>
-                <img src={bell_icon} alt="Notifications" className="w-5 cursor-pointer" />
+                {/* Right: Icons & Profile */}
+                <div className="flex items-center gap-4 md:gap-5 lg:gap-6">
+                    <img src={search_icon} alt="Search" className="w-5 cursor-pointer hidden md:block" />
+                    <p className="hidden lg:block">Children</p>
+                    <img src={bell_icon} alt="Notifications" className="w-5 cursor-pointer hidden md:block" />
 
-                <div className="relative flex items-center gap-2 cursor-pointer group">
-                    <img src={profile_img} alt="Profile" className="w-9 rounded-md" />
-                    {isAuthenticated ? (
-                        <div className="relative group">
-                            {/* Profile Dropdown Button */}
-                            <img src={caret_icon} alt="Dropdown" className="cursor-pointer" />
-
-                            {/* Dropdown Menu (Appears on Hover) */}
-                            <div className="absolute top-full right-0 w-[140px] bg-[#191919] p-2 hidden underline text-sm group-hover:block border rounded-md">
-                                <p className="cursor-pointer">Sign Out of Netflix</p>
-                            </div>
+                    {/* Profile Dropdown */}
+                    <div className="relative flex items-center gap-2 cursor-pointer group">
+                        <img src={profile_img} alt="Profile" className="w-8 md:w-9 rounded-md" />
+                        <img src={caret_icon} alt="Dropdown" className="hidden md:block" />
+                        <div className="absolute w-[150px] top-full right-0 bg-[#191919] p-2 hidden underline text-sm group-hover:block">
+                            <p className="cursor-pointer">Click here to SignOut</p>
                         </div>
-                    ) : (
-                        <></>
-                        
-                    )}
+                    </div>
 
+                    {/* Mobile Menu Toggle Button */}
+                    <button className="md:hidden text-2xl" onClick={() => setMenuOpen(!menuOpen)}>
+                        {menuOpen ? "✖" : "☰"}
+                    </button>
                 </div>
             </div>
 
             {/* Mobile Navigation Menu */}
-            {menuOpen && (
-                <div className="absolute top-14 left-0 w-full bg-black text-white flex flex-col py-5 px-6 space-y-4 shadow-lg md:hidden">
-                    <ul className="flex flex-col gap-4">
-                        <li className="cursor-pointer">Home</li>
-                        <li className="cursor-pointer">TV Shows</li>
-                        <li className="cursor-pointer">Movies</li>
-                        <li className="cursor-pointer">New & Popular</li>
-                        <li className="cursor-pointer">My List</li>
-                        <li className="cursor-pointer">Browse by Languages</li>
-                    </ul>
-                </div>
-            )}
-            {/* Mobile Menu Toggle Button */}
-            <button className="md:hidden text-white text-2xl" onClick={() => setMenuOpen(!menuOpen)}>
-                {menuOpen ? "✖" : "☰"}
-            </button>
-        </div>
+            <div className={`absolute top-14 left-0 w-full bg-black text-white flex flex-col py-5 px-6 space-y-4 shadow-lg md:hidden transition-all duration-300 ${menuOpen ? "block" : "hidden"}`}>
+                <ul className="flex flex-col gap-4 text-lg">
+                    <li><Link to="/" className="hover:text-gray-300" onClick={() => setMenuOpen(false)}>Home</Link></li>
+                    <li><Link to="/tvshows" className="hover:text-gray-300" onClick={() => setMenuOpen(false)}>TV Shows</Link></li>
+                    <li><Link to="/movies" className="hover:text-gray-300" onClick={() => setMenuOpen(false)}>Movies</Link></li>
+                    <li><Link to="/popular" className="hover:text-gray-300" onClick={() => setMenuOpen(false)}>New & Popular</Link></li>
+                    <li><Link to="/mylist" className="hover:text-gray-300" onClick={() => setMenuOpen(false)}>My List</Link></li>
+                    <li><Link to="/languages" className="hover:text-gray-300" onClick={() => setMenuOpen(false)}>Languages</Link></li>
+                </ul>
+            </div>
+        </nav>
     );
 };
 

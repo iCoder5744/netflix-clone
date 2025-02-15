@@ -1,32 +1,29 @@
 import React, { useRef } from "react";
-import cards_data from "../assets/cards/Cards_data";
+import { useNavigate } from "react-router-dom";
 
-
-const TitleCards = ({ title }) => {
+const TitleCards = ({ title, movies }) => {
   const cardsRef = useRef(null);
-
-  // Scroll the card list when the arrow button is clicked
-  const scrollCards = (direction) => {
-    if (cardsRef.current) {
-      cardsRef.current.scrollLeft += direction === "right" ? 240 : -240; // Scroll by 240px (or any other value)
-    }
-  };
+  const navigate = useNavigate();
 
   return (
     <div>
-      <h2 className="mb-2 text-xl font-semibold">{title ? title : "Popular on Netflix"}</h2>
-      <div
-        className="flex gap-2 overflow-x-auto scroll-smooth pb-2   "
-        ref={cardsRef}
-        style={{ scrollbarWidth: "none" }} // Hide scrollbar for Firefox
-      >
-        {cards_data.map((card, index) => (
-          <div key={index} className="relative flex-none w-[240px] rounded-lg bg-gray-800 p-2 text-center">
-            <div className="w-full cursor-pointer overflow-hidden rounded-md ">
-              <img src={card.image} alt={card.name} className="  w-full rounded-md transition-transform duration-300 ease-in-out hover:scale-105" />
+      <h2 className="mb-2 text-xl font-semibold">{title}</h2>
+      <div className="flex gap-2 overflow-x-auto scroll-smooth pb-2" ref={cardsRef} style={{ scrollbarWidth: "none" }}>
+        {movies.map((movie, index) => (
+          <div 
+            key={index} 
+            className="relative flex-none w-[240px] rounded-lg bg-gray-800 p-2 text-center cursor-pointer"
+            onClick={() => navigate(`/player/${movie.videoId}`, { state: movie })}
+          >
+            <div className="w-full overflow-hidden rounded-md">
+              <img 
+                src={movie.image} 
+                alt={movie.name} 
+                className="w-full rounded-md transition-transform duration-300 ease-in-out hover:scale-105"
+              />
             </div>
             <p className="absolute bottom-2 right-2 text-sm text-white bg-black/60 px-2 py-1 rounded-md">
-              {card.name}
+              {movie.name}
             </p>
           </div>
         ))}
