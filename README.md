@@ -13,4 +13,4 @@ Screenshot of our website
 
 ![Screenshot](src/assets/screenshot/our%20screenshots/Medium-Screen-View.png)
 
-![Screenshot](src/assets/screenshot/our%20screenshots/Mobile-View.png)
+![Screenshot](file:///home/shivam/Desktop/netflix-clone/src/assets/screenshot/Mobile-View.png)
