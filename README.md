@@ -9,8 +9,11 @@ Currently, two official plugins are available:
 
 Screenshot of our website
 
-![Screenshot](src/assets/screenshot/our%20screenshots/Large-Screen-View.png)
+Here is the Large Screen View of the project:
+![Large Screen View](https://raw.githubusercontent.com/iCoder5744/netflix-clone/blob/master/Large-Screen-View.png)
 
-![Screenshot](src/assets/screenshot/our%20screenshots/Medium-Screen-View.png)
+Here is the Medium Screen View of the project:
+![Large Screen View](https://raw.githubusercontent.com/iCoder5744/netflix-clone/blob/master/Medium-Screen.png)
 
-![Screenshot](file:///home/shivam/Desktop/netflix-clone/src/assets/screenshot/Mobile-View.png)
+Here is the Mobile Screen View of the project:
+![Large Screen View](https://raw.githubusercontent.com/iCoder5744/netflix-clone/blob/master/Mobile-View.png)
