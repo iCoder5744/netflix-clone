@@ -13,7 +13,8 @@ Here is the Large Screen View of the project:
 ![Large Screen View](https://raw.githubusercontent.com/iCoder5744/netflix-clone/blob/master/Large-Screen-View.png)
 
 Here is the Medium Screen View of the project:
-![Large Screen View](https://raw.githubusercontent.com/iCoder5744/netflix-clone/blob/master/Medium-Screen.png)
+![Large Screen View](https://github.com/iCoder5744/netflix-clone/blob/master/Medium-Screen.png?raw=true)
+
 
 Here is the Mobile Screen View of the project:
 ![Large Screen View](https://raw.githubusercontent.com/iCoder5744/netflix-clone/blob/master/Mobile-View.png)
