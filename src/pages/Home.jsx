@@ -24,7 +24,7 @@ const Home = () => {
         />
         <div className="absolute flex flex-col gap-y-6 bottom-2 left-4 md:left-10 lg:left-18 w-full">
           <img src={hero_title} alt="Hero Title" className="w-11/12 max-w-[420px]" />
-          <p className="max-w-[700px] text-lg  mb-2">
+          <p className="max-w-[700px] text-lg  mb-2 pr-6 ">
             Discovering his ties to a secret ancient order, a young man living in modern Istanbul
             embarks on a quest to save the city from an immortal enemy.
           </p>
